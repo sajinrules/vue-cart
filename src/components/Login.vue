@@ -1,72 +1,62 @@
 <template>
-  <div class="container">
-    <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-      <b-form-group
-        id="input-group-1"
-        label="Email address:"
-        label-for="input-1"
-        description="We'll never share your email with anyone else."
-      >
+  <div class="login-container container">
+    <b-form @submit="onSubmit">
+      <b-form-group id="input-group-1">
         <b-form-input
           id="input-1"
           v-model="form.email"
           type="email"
           required
-          placeholder="Enter email"
+          placeholder="Email"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+      <b-form-group id="input-group-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.password"
           required
-          placeholder="Enter name"
+          placeholder="Password"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-3" label="Food:" label-for="input-3">
-        <b-form-select
-          id="input-3"
-          v-model="form.food"
-          :options="foods"
-          required
-        ></b-form-select>
-      </b-form-group>
-
-      <b-form-group id="input-group-4">
-        <b-form-checkbox-group v-model="form.checked" id="checkboxes-4">
-          <b-form-checkbox value="me">Check me out</b-form-checkbox>
-          <b-form-checkbox value="that">Check that out</b-form-checkbox>
-        </b-form-checkbox-group>
-      </b-form-group>
-
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button block type="submit" variant="info">Submit</b-button>
     </b-form>
-    <b-card class="mt-3" header="Form Data Result">
-      <pre class="m-0">{{ form }}</pre>
-    </b-card>
   </div>
 </template>
 <script>
+import { ResourceFactory } from '../services/ResourceFactory'
+const UserResource = ResourceFactory.get('users')
 
 export default {
-    name: 'Login',
-    data() {
+  name: 'Login',
+  data() {
     return {
-        form: {
-            email: '',
-            name: '',
-            food: null,
-            checked: []
-        },
-        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        show: true
-        }
+      form: {
+          email: '',
+          password: '',
+      }
     }
+  },
+  methods: {
+    async fetch () {
+      this.isLoading = true
+      const data  = await UserResource.signIn(form)
+      this.isLoading = false
+      this.posts = data;
+    }
+  }
 }
 </script>
-<style scoped>
-	
+<style scoped lang="scss">
+	.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 50%;
+    form {
+      width: 100%;
+    }
+  }
 </style>

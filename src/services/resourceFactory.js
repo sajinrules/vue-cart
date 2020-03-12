@@ -1,5 +1,5 @@
 import ProductResource from "./productResource";
-import UserResource from "./productResource";
+import UserResource from "./userResource";
 
 const resources = {
   products: ProductResource,

@@ -1,6 +1,6 @@
 <template>
   <div class="login-container container">
-    <b-form @submit="onSubmit">
+    <b-form @submit.prevent="login">
       <b-form-group id="input-group-1">
         <b-form-input
           id="input-1"
@@ -25,7 +25,7 @@
   </div>
 </template>
 <script>
-import { ResourceFactory } from '../services/ResourceFactory'
+import { ResourceFactory } from './../services/resourceFactory'
 const UserResource = ResourceFactory.get('users')
 
 export default {
@@ -39,9 +39,10 @@ export default {
     }
   },
   methods: {
-    async fetch () {
+    async login () {
+      console.log('this.form:', ResourceFactory.get('users'))
       this.isLoading = true
-      const data  = await UserResource.signIn(form)
+      const data  = await UserResource.signIn(this.form)
       this.isLoading = false
       this.posts = data;
     }
@@ -55,6 +56,7 @@ export default {
     justify-content: center;
     height: 100%;
     width: 50%;
+    max-width: 400px;
     form {
       width: 100%;
     }

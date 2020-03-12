@@ -3,7 +3,7 @@ import resource from "./resource";
 const entity = "/users";
 const auth = '/auth/login'
 export default {
-  getAll() {
+  getAlls() {
     return resource.get(`${entity}`);
   },
 
@@ -14,7 +14,7 @@ export default {
   create(payload) {
     return resource.post(`${entity}`, payload);
   },
-  
+
   signIn({email, password}) {
     return resource.post(`${auth}`, {email, password});
   }

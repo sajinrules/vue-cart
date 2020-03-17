@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     async login () {
-      console.log('this.form:', ResourceFactory.get('users'))
       this.isLoading = true
       const data  = await UserResource.signIn(this.form)
       this.isLoading = false

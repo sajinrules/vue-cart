@@ -5,11 +5,12 @@ import Login from '@/components/Login';
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
       path: '/dashboard',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {requiresAuth : true}
     }, {
         path: '/login',
         name: 'login',
@@ -20,3 +21,20 @@ export default new Router({
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    if (localStorage.getItem('access_token')) {
+      next()
+    } else {
+      next({
+        name: "login"
+      });
+    }
+  }
+  else {
+    next();
+  }
+  
+})
+
+export default router;

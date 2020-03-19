@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from '@/components/Dashboard';
 import Login from '@/components/Login';
+import Auth from '@/services/authService';
 
 Vue.use(Router)
 
@@ -23,7 +24,7 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    if (localStorage.getItem('access_token')) {
+    if (Auth.isAuthenticated) {
       next()
     } else {
       next({

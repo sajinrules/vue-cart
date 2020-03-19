@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <Header/>
+    <Header />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from "./components/Header.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Header
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -22,7 +22,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-color: $primary;
-height: 100vh;
+  color: $primary;
+  height: calc(100vh - 72px);
 }
 </style>

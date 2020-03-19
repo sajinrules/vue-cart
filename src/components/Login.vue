@@ -25,8 +25,10 @@
   </div>
 </template>
 <script>
-import { ResourceFactory } from './../services/resourceFactory'
-const UserResource = ResourceFactory.get('users')
+import { ResourceFactory } from '@/services/resourceFactory';
+import Auth from '@/services/authService';
+const UserResource = ResourceFactory.get('users');
+import router from '@/Router';
 
 export default {
   name: 'Login',
@@ -40,10 +42,11 @@ export default {
   },
   methods: {
     async login () {
-      this.isLoading = true
-      const data  = await UserResource.signIn(this.form)
-      this.isLoading = false
-      this.posts = data;
+      const res  = await UserResource.signIn(this.form);
+      if (res.data && res.data) {
+        Auth.setToken(res.data);
+        router.push('dashboard');
+      }
     }
   }
 }

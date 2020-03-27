@@ -1,21 +1,21 @@
-import resource from "./resource";
+import httpClient from "./resource";
 
 const entity = "/users";
 const auth = '/auth/login'
 export default {
   getAlls() {
-    return resource.get(`${entity}`);
+    return httpClient.get(`${entity}`);
   },
 
   get(id) {
-    return resource.get(`${entity}/${id}`);
+    return httpClient.get(`${entity}/${id}`);
   },
 
   create(payload) {
-    return resource.post(`${entity}`, payload);
+    return httpClient.post(`${entity}`, payload);
   },
 
   signIn({email, password}) {
-    return resource.post(`${auth}`, {email, password});
+    return httpClient.post(`${auth}`, {email, password});
   }
 };

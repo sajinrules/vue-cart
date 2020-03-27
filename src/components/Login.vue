@@ -27,6 +27,7 @@
 <script>
 import { ResourceFactory } from '@/services/resourceFactory';
 import Auth from '@/services/authService';
+// import Bus from '@/services/bus';
 const UserResource = ResourceFactory.get('users');
 import router from '@/Router';
 
@@ -44,7 +45,9 @@ export default {
     async login () {
       const res  = await UserResource.signIn(this.form);
       if (res.data && res.data) {
-        Auth.setToken(res.data);
+        console.log('res.data:', res.data);
+        Auth.setToken(res.data.access_token);
+        Auth.setProfile(res.data.user)
         router.push('dashboard');
       }
     }

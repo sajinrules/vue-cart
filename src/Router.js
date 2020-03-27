@@ -24,7 +24,7 @@ const router = new Router({
 })
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
-    if (Auth.isAuthenticated) {
+    if (Auth.isAuthenticated()) {
       next()
     } else {
       next({
